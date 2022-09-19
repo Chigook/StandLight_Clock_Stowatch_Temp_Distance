@@ -41,7 +41,7 @@ void Controller::updateEvent(std::string strBtn)
     {
         clockService->updateState("stowatchstartstopButton");
     }
-
+    
     if(strBtn == "clockUpdate")
     {
         clockService->updateEvent();

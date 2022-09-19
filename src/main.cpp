@@ -34,7 +34,6 @@ int main()
     Led led4(24);
     Led led5(25);
     DHT11 dht(7);
-    DHT_Data dhtData;
     UltraSonic ultraSonic(5, 4); //trig = 5, echo = 4
     LCD lcd(new I2C("/dev/i2c-1", 0x27));
     View view(&led1, &led2, &led3, &led4, &led5, &lcd, 6);
@@ -42,7 +41,7 @@ int main()
     ClockView clockView(&lcd);
     FanView fanView(6);
     Service service(&view);
-    ClockService clockService(&clockView);
+    ClockService clockService(&clockView, &lcd);
     DHT11Service dht11Service(&dht11View);
     FanService fanService(&fanView);
     Controller control(&service, &clockService, &dht11Service, &fanService);

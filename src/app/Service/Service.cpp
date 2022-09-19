@@ -130,6 +130,7 @@ void Service::updateDistance(int distance)
         {
             bDistanceLight = false; // Light Off
             view->setState(LIGHT_OFF);
+            view->checkTempState("fanButton_off");
         }
     }
     else

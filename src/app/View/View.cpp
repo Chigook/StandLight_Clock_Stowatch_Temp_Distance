@@ -52,7 +52,7 @@ void View::checkTemp()
     char buff[30];
     int temp_state = 0;
 
-    if(temper >= 25)
+    if(temper >= 27)
     {
         temp_state = 1;
         // if(fanState == 0)
@@ -87,7 +87,7 @@ void View::checkTemp()
         softPwmWrite(pwmPin, 0);
         delay(100);
     }
-printf("fanstate:%d\n",fanState);
+// printf("fanstate:%d\n",fanState);
 }
 
 

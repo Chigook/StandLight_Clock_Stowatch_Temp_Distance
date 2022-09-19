@@ -17,6 +17,7 @@ public:
     ClockView(LCD *lcd);
     ~ClockView();
     void updatetime(struct tm *timeData);
+    void updateStopwatch(int result);
 };
 
 #endif
