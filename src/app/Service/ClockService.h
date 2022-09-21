@@ -5,7 +5,7 @@
 #include "ClockView.h"
 #include "lcd.h"
 
-enum {Clock, StopWatchWait, StopWatchStart};
+enum {Clock, StopWatchStart, StopWatchWait};
 
 class ClockService
 {
@@ -14,10 +14,9 @@ private:
     time_t prevTime;
     time_t curTime;
     ClockView *clockView;
-    LCD *lcd;
 
 public:
-    ClockService(ClockView *view, LCD *lcd);
+    ClockService(ClockView *view);
     virtual ~ClockService();
     void updateEvent();
     void updateState(std::string strState);

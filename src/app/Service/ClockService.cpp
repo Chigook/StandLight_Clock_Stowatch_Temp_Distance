@@ -1,13 +1,12 @@
 #include "ClockService.h"
 #include <iostream>
 
-ClockService::ClockService(ClockView *view, LCD *lcd)
+ClockService::ClockService(ClockView *view)
 {
     prevTime = 0;
     curTime = 0;
     clockView = view;
     TimerState = Clock;
-    this->lcd = lcd;
 }
 
 ClockService::~ClockService()
@@ -21,11 +20,16 @@ void ClockService::updateState(std::string strState)
     {
         case Clock:
             if (strState == "stopwatchButton") {
-                TimerState = StopWatchWait;
-                prevTime = time(NULL)+32401;
+                TimerState = StopWatchStart;
+                prevTime = time(NULL)+32400;
             }
-            if (strState == "stowatchstartstopButton") {
-                TimerState = Clock;
+        break;
+
+        case StopWatchStart:
+            if (strState == "stopwatchButton")
+            {
+                TimerState = StopWatchWait;
+                prevTime = curTime;
             }
         break;
 
@@ -33,17 +37,7 @@ void ClockService::updateState(std::string strState)
             if (strState == "stopwatchButton") {
                 TimerState = Clock;
             }
-            if (strState == "stowatchstartstopButton") {
-                TimerState = StopWatchStart;
-            }
         break;
-
-        case StopWatchStart:
-            if (strState == "stowatchstartstopButton"){
-                TimerState = StopWatchWait;
-            }
-        break;
-
     }
 }
 
@@ -54,21 +48,18 @@ void ClockService::updateEvent()
         curTime = time(NULL);
         struct tm *timeDate = localtime(&curTime);
         clockView->updatetime(timeDate);
-        printf("Clock\n");
     }
 
-    if(TimerState == StopWatchStart)
-    {
+    if(TimerState == StopWatchStart){
         curTime = time(NULL) - prevTime;
         struct tm *timeDate = localtime(&curTime);
         clockView->updatetime(timeDate);
-        printf("StopWatchStar\n");
     }
 
-    if(TimerState == StopWatchWait){
-        curTime = 0;
+    if(TimerState == StopWatchWait)
+    {
         struct tm *timeDate = localtime(&curTime);
-        clockView->updatetime(timeDate);  
-        printf("StopWatchWait\n");      
+        clockView->updatetime(timeDate);
     }
+
 }

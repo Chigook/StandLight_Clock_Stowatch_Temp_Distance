@@ -41,7 +41,7 @@ int main()
     ClockView clockView(&lcd);
     FanView fanView(6);
     Service service(&view);
-    ClockService clockService(&clockView, &lcd);
+    ClockService clockService(&clockView);
     DHT11Service dht11Service(&dht11View);
     FanService fanService(&fanView);
     Controller control(&service, &clockService, &dht11Service, &fanService);

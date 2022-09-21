@@ -52,7 +52,7 @@ void View::checkTemp()
     char buff[30];
     int temp_state = 0;
 
-    if(temper >= 27)
+    if(temper >= 26)
     {
         temp_state = 1;
         // if(fanState == 0)
